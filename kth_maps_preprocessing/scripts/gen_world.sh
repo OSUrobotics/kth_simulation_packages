@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
 
-for d in /home/$USER/catkin_ws/src/kth_navigation/models/*/model.sdf; do
+for d in $RELATIVE_PATH/../models/*/model.sdf; do
   python buildworld.py $d
 done
