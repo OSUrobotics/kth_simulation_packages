@@ -1,0 +1,18 @@
+<launch>
+  <!-- Play a filtered rosbag and publish static transforms lost by the filter for a fetch robot -->
+  <arg name="bagfile" value="$(find kth_navigation)/$(optenv KTH_WORLD)_new.bag" />
+  <param name="use_sim_time" value="true" />
+  <node pkg="tf" type="static_transform_publisher" name="bellows_link_broadcaster" args="0 0 0 0 0 0 1 torso_lift_link bellows_link2 100" />
+  <node pkg="tf" type="static_transform_publisher" name="estop_link_broadcaster" args="-0.12465 0.23892 0.31127 0.707108079859 0 0 0.707105482511 base_link estop_link 100" />
+  <node pkg="tf" type="static_transform_publisher" name="gripper_link_broadcaster" args="0.16645 0 0 0 0 0 1 wrist_roll_link gripper_link 100" />
+  <node pkg="tf" type="static_transform_publisher" name="head_camera_depth_link_broadcaster" args="0 0.045 0 0 0 0 1 head_camera_link head_camera_depth_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="head_camera_depth_optical_link_broadcaster" args="0 0 0 -0.5 0.499999999998 -0.5 0.500000000002 head_camera_depth_frame head_camera_depth_optical_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="head_camera_link_broadcaster" args="0.055 0 0.0225 0 0 0 1 head_tilt_link head_camera_link 100" />
+  <node pkg="tf" type="static_transform_publisher" name="head_camera_rgb_link_broadcaster" args="0 0.02 0 0 0 0 1 head_camera_link head_camera_rgb_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="head_camera_rgb_optical_link_broadcaster" args="0 0 0 -0.5 0.499999999998 -0.5 0.500000000002 head_camera_rgb_frame head_camera_rgb_optical_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="laser_link_broadcaster" args="0.235 0 0.2878 1.0 0 0 -1.03411553555e-13 base_link laser_link 100" />
+  <node pkg="tf" type="static_transform_publisher" name="torso_fixed_link_broadcaster" args="-0.086875 0 0.377425 -3.06151588456e-17 0 0 1 base_link torso_fixed_link 100" />
+
+  <node pkg="rosbag" type="play" name="rosbag_play" args="$(arg bagfile) --clock" required="true" />
+
+</launch>

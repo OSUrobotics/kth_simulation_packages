@@ -1,0 +1,43 @@
+<launch>
+
+  <env name="GAZEBO_MODEL_PATH" value="$(find kth_navigation)/models:$(find fetch_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)" />
+  <arg name="move_base_include" default="$(find fetch_navigation)/launch/include/move_base.launch.xml" />
+  <arg name="amcl_include" default="$(find fetch_navigation)/launch/include/amcl.launch.xml" />
+  <arg name="world" default="$(optenv KTH_WORLD_FILE)" />
+  <arg name="robot" default="fetch"/>
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="false"/>
+  <arg name="headless" default="true"/>
+  <param name="use_sim_time" value="true" />
+  <!-- <arg name="rviz_args" value="-d $(find etu_simulation)/rviz/config.rviz" /> -->
+
+  <!-- Start Gazebo with a blank world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="world_name" value="$(arg world)"/>
+  </include>
+
+  <include file="$(arg amcl_include)" />
+  <include file="$(arg move_base_include)" >
+    <arg name="name" value="fetch" />
+  </include>
+
+  <!-- Oh, you wanted a robot? -->
+  <include file="$(find fetch_gazebo)/launch/include/$(arg robot).launch.xml" />
+
+  <node pkg="kth_navigation" type="explore.py" name="explore_room" output="screen" required="true"/>
+
+  <!-- <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <remap from="scan" to="base_scan" />
+    <rosparam>
+      xmin: -1.0
+      ymin: -1.0
+      xmax: 1.0
+      ymax: 1.0
+    </rosparam>
+  </node> -->
+</launch>
