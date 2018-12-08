@@ -6,7 +6,10 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
-  <!-- <arg name="rviz_args" value="-d $(find etu_simulation)/rviz/config.rviz" /> -->
+  <arg name="world" default="50009418" />
+  <arg name="world_file" default="$(find kth_navigation)/worlds/$(arg world).world" />
+  <arg name="map" default="$(find kth_navigation)/maps/$(arg world)/map.yaml" />
+  <arg name="rviz_args" value="-d $(find kth_navigation)/rviz/config.rviz" />
 
   <!-- Start Gazebo with a blank world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -15,19 +18,19 @@
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="headless" value="$(arg headless)"/>
-    <arg name="world_name" value="$(find kth_navigation)/worlds/50009418.world"/>
+    <arg name="world_name" value="$(arg world_file)"/>
   </include>
 
   <!-- Oh, you wanted a robot? -->
   <include file="$(find fetch_gazebo)/launch/include/$(arg robot).launch.xml" />
-  <!-- <include file="$(find fetch_navigation)/launch/fetch_nav.launch">
-    <arg name="map_file" value="$(find etu_simulation)/maps/etu_1/map.yaml" />
-  </include> -->
+  <include file="$(find fetch_navigation)/launch/fetch_nav.launch">
+    <arg name="map_file" value="$(arg map)" />
+  </include>
 
 
-  <!-- <node name="$(anon rviz)" pkg="rviz" type="rviz" required="true"
+  <node name="$(anon rviz)" pkg="rviz" type="rviz" required="true"
      respawn="false" output="screen" args="$(arg rviz_args)">
-  </node> -->
+  </node>
 
 
 

@@ -29,10 +29,14 @@ SOFTWARE.
 from time import sleep
 import yaml, os, mdptoolbox, random, cv2, sys
 from copy import deepcopy
+import numpy as np
 import random
 from skimage.draw import line
 from scipy.misc import imread
-from scipy.spatial.distance import euclidean
+# from scipy.spatial.distance import euclidean
+
+res = .05
+origin = None
 
 ############################# load_map definition #######################
 # Load map takes in two arguments, both of which are filepaths
@@ -79,7 +83,7 @@ def load_map(image, config):
 # percentage of total reachable pixels should be included in the returned
 # samples list
 ##############################################################################
-def get_samples_wavefront(image, res, origin, sample_rate = .01):
+def get_samples_wavefront(image, sample_rate = .01, max_samples = 10000):
 
     ########### Inflate the image and set up dictionaries #################
     height, width = image.shape
@@ -118,7 +122,11 @@ def get_samples_wavefront(image, res, origin, sample_rate = .01):
                     open_list.append((i,j))
 
     ##### Downsample the reachable space proportional to the sample rate #####
-    downsamples = list(random.sample(samples,int(len(samples)*sample_rate)))
+    proportional_samples = int(len(samples)*sample_rate)
+    n_samples = max_samples
+    if proportional_samples < max_samples:
+        n_samples = proportional_samples
+    downsamples = list(random.sample(samples,n_samples))
 
     ############## plot the downsamples space for debugging ################
     # testim = deepcopy(img)
@@ -147,32 +155,52 @@ def get_samples_wavefront(image, res, origin, sample_rate = .01):
 # The origin argument expects a tuple that defines the coordinates of the lower
 # left pixel of the map (x,y) in meters
 ##############################################################################
-def get_cover(image, res, samples, origin):
+def get_cover(image, samples):
     ################# inflate the image ##########################
     height, width = image.shape
     radius = int(.7 / res)
     laser_range = int(5/res)
     img = deepcopy(image)
+    goal_image = deepcopy(image)
     for i in range(height):
         for j in range(width):
             if image[i,j] == 0:
                 img = cv2.circle(img, (j,i), radius, color = 0, thickness = -1)
 
+    goal_image = cv2.cvtColor(goal_image,cv2.COLOR_GRAY2RGB)
     ################## Generate the graph of line of sight ###############
+    visibility_img = np.zeros((height,width))
     graph = dict()
     open = []
     for i in range(len(samples)):
         graph[samples[i]] = []
         open.append(samples[i])
+        goal_image[samples[i][1],samples[i][0]] = (255,0,0)
+        visibility_img[samples[i][1],samples[i][0]] = 1
     for i in range(len(samples)):
-        for j in range(i,len(samples)):
-            sample1 = samples[i]
-            sample2 = samples[j]
-            rr,cc = line(sample1[1],sample1[0],sample2[1],sample2[0])
-            dist = euclidean(sample1,sample2)
-            if image[rr,cc].all() and dist <= laser_range:
-                graph[sample1].append(sample2)
-                graph[sample2].append(sample1)
+        mask = np.zeros((height,width))
+        x1,y1 = samples[i]
+        mask = cv2.circle(mask,(x1,y1),radius = laser_range, color = 1, thickness = -1)
+        out = np.logical_and(visibility_img,mask)
+        neighbors = np.where(out)
+        for k in range(len(neighbors[0])):
+            y2,x2 = (neighbors[0][k],neighbors[1][k])
+            rr,cc = line(y1,x1,y2,x2)
+            if image[rr,cc].all():
+                graph[(x1,y1)].append((x2,y2))
+                graph[(x2,y2)].append((x1,y1))
+        visibility_img[y1,x1] = 0
+
+        # for j in range(i,len(samples)):
+        #     sample1 = samples[i]
+        #     sample2 = samples[j]
+        #     dist = euclidean(sample1,sample2)
+        #     if dist <= laser_range:
+        #         rr,cc = line(sample1[1],sample1[0],sample2[1],sample2[0])
+        #         if image[rr,cc].all():
+        #             graph[sample1].append(sample2)
+        #             graph[sample2].append(sample1)
+    print "visibility found"
 
 
     ########################################################################
@@ -209,17 +237,18 @@ def get_cover(image, res, samples, origin):
                     pass
 
     ######## Generate an image showing goals for debugging ####################
-    # goal_image = deepcopy(image)
-    # goal_image = cv2.cvtColor(goal_image,cv2.COLOR_GRAY2RGB)
-    # for goal in goals:
-    #     goal_image = cv2.circle(goal_image,(goal[0],goal[1]),5,color=(0,255,0), thickness = -1)
+    x_org = -int(origin[0] / res)
+    y_org = height + int(origin[1] / res)
+    goal_image = cv2.circle(goal_image,(x_org,y_org),int(.3/res),color=(0,0,255), thickness = -1)
+    for goal in goals:
+        goal_image = cv2.circle(goal_image,(goal[0],goal[1]),int(.3/res),color=(255,0,0), thickness = -1)
     # cv2.imwrite('test.png',goal_image)
 
     ####### Convert the goals into cartesian coordinates for navigation #######
     for i in range(len(goals)):
         goals[i] = [goals[i][0] * res + origin[0], (height - goals[i][1]) * res + origin[1]]
 
-    return goals
+    return goals, goal_image
 
 ############################ write_goals definition ###########################
 # write_goals writes out a yaml file defining the coordinates in (x,y,z) and
@@ -232,7 +261,7 @@ def get_cover(image, res, samples, origin):
 # The name argument expects a string to use as the name of the folder to contain
 # the goals.yaml file
 ###############################################################################
-def write_goals(goals,name):
+def write_goals(goals,name,image):
     ################## Get the path to the goals folder #######################
     dirname = os.path.dirname(os.path.dirname(__file__))
     dirname = os.path.join(dirname,'goals/'+name+'/')
@@ -266,25 +295,29 @@ def write_goals(goals,name):
     with open(dirname + 'goals.yaml', 'w') as outfile:
         yaml.dump(navigation_goals, outfile, default_flow_style=False)
 
+    cv2.imwrite(dirname+'/goals.png',image)
+
 def main(args):
+    global origin
     try:
         name = args[1].split('/')[-2]
-        dirname = os.path.dirname(__file__)
+        dirname = os.path.dirname(os.path.dirname(__file__))
         filename = os.path.join(dirname,'goals/'+name+'/goals.yaml')
         if os.path.exists(filename):
             print "Goals already exist for this map: " + name
-            exit()
-        mapfile = args[1] + 'map.pgm'
-        confile = args[1] + 'map.yaml'
-        sample_rate = .01
-        img, res, origin = load_map(mapfile,confile)
-        # print 'map loaded'
-        samples = get_samples_wavefront(img,res,origin,sample_rate)
-        # print 'samples acquired'
-        goals = get_cover(img,res,samples,origin)
-        # print 'goals calculated'
-        write_goals(goals,name)
-        # print 'goals written'
+        else:
+            mapfile = args[1] + 'map.pgm'
+            confile = args[1] + 'map.yaml'
+            sample_rate = .02
+            max_samples = 10000
+            img, res, origin = load_map(mapfile,confile)
+            print 'map loaded'
+            samples = get_samples_wavefront(img,sample_rate,max_samples)
+            print 'samples acquired'
+            goals,goal_im = get_cover(img,samples)
+            print 'goals calculated'
+            write_goals(goals,name,goal_im)
+            print 'goals written'
     except:
         print "Error processing file " + args[1]
 

@@ -3,7 +3,8 @@ import xml.dom.minidom as MD
 import math, sys, os
 
 def writeWorld(model_file):
-    tree = ET.parse('world_template.xml')
+    dirname = os.path.dirname(os.path.dirname(__file__))
+    tree = ET.parse(dirname+'/src/world_template.xml')
     root = tree.getroot()
     world = root.find('world')
 
@@ -15,7 +16,6 @@ def writeWorld(model_file):
 
     world.append(model)
 
-    dirname = os.path.dirname(os.path.dirname(__file__))
     dirname = os.path.join(dirname,'worlds/')
     if not os.path.exists(dirname):
         os.makedirs(dirname)

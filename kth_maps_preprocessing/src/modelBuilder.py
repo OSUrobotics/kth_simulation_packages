@@ -15,7 +15,7 @@ def model(file):
     ScaleElem = root.find('Scale')
 
     scale = float(ScaleElem.attrib['RealDistance'])/float(ScaleElem.attrib['PixelDistance'])
-
+    scale = 2 * scale
     count = 0
     max_x = 0
     min_x = 999999999
