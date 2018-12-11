@@ -38,14 +38,14 @@ class Simulator:
         self.id = str(os.getpid())
 
         # Get Service proxies for sending gazebo poses, actions, and getting amcl pose
-        rospy.wait_for_service('gazebo/set_model_state')
-        self.set_gazebo_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
+        # rospy.wait_for_service('gazebo/set_model_state')
+        # self.set_gazebo_state = rospy.ServiceProxy('/gazebo/set_model_state', SetModelState)
         rospy.wait_for_service('gazebo/get_model_state')
         self.get_gazebo_state = rospy.ServiceProxy('/gazebo/get_model_state', GetModelState)
         rospy.wait_for_service('amcl_pose_server')
         self.get_amcl_pose = rospy.ServiceProxy('/amcl_pose_server', GetPose)
-        rospy.wait_for_service('move_base/clear_costmaps')
-        self.clear_costmaps = rospy.ServiceProxy('/move_base/clear_costmaps', Empty)
+        # rospy.wait_for_service('move_base/clear_costmaps')
+        # self.clear_costmaps = rospy.ServiceProxy('/move_base/clear_costmaps', Empty)
 
         self.send_goal = actionlib.SimpleActionClient('/move_base', MoveBaseAction)
         self.send_goal.wait_for_server(rospy.Duration(60))
@@ -60,38 +60,23 @@ class Simulator:
         self.publisher = rospy.Publisher('initialpose',PoseWithCovarianceStamped,queue_size=10)
 
     def simulate(self):
-        num = len(self.locations)
         data = None
         random.seed(rospy.get_time())
         # Let's run some tests
         # rospy.loginfo("got to simulate")
         for t in range(50):
-            i = random.choice(range(0,num))
-            j = random.choice(range(0,num))
-            if i == j:
-                continue
             self.stopped = False
             # Try to set the starting point and localize
-            attempts = 0
-            localized = True
-            while(self.set_start(self.locations[i])):
-                attempts  = attempts + 1
-                if attempts > 2: # cannot localize here, even after reset
-                    localized = False
-                    break
-            if not localized:
-                data = [self.locations[i],self.locations[j],'localization_error']
-            else:
-                self.clear_costmaps()
-                rospy.sleep(2)
-                self.start_time = rospy.get_time()
-                self.send_goal.send_goal(self.make_goal(self.locations[j]))
-                path = []
-                while(not self.stopped):
-                    path.append(self.get_amcl_pose().msg.pose.pose)
-                    rospy.sleep(1)
-                data = [self.move_result,self.stop_time - self.start_time, path]
-                self.write_data(self.locations[i],self.locations[j],data)
+            self.start_time = rospy.get_time()
+            self.send_goal.send_goal(self.make_goal(self.locations[j]))
+            amcl_path = []
+            gazebo_path = []
+            while(not self.stopped):
+                amcl_path.append(self.get_amcl_pose().msg.pose.pose)
+                gazebo_path.append(self.get_gazebo_state(self.robot,self.g_frame).pose)
+                rospy.sleep(1)
+            data = [self.move_result,self.stop_time - self.start_time, path]
+            self.write_data(self.locations[i],self.locations[j],data)
         rospy.signal_shutdown(0)
 
     def write_data(self,start,stop,data):
@@ -115,26 +100,6 @@ class Simulator:
         goal.target_pose.header.frame_id = self.a_frame
         goal.target_pose.header.stamp = rospy.Time.now()
         return goal
-
-
-    def _reset_world(self):
-        self.reset()
-        initialpose = PoseWithCovarianceStamped()
-        initialpose.pose.position.x = 0
-        initialpose.pose.position.y = 0
-        initialpose.pose.position.z = 0
-
-        initialpose.pose.orientation.x = 0
-        initialpose.pose.orientation.y = 0
-        initialpose.pose.orientation.z = 0
-        initialpose.pose.orientation.w = 1.0
-
-        initialpose.pose.covariance = [0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853891945200942]
-
-        initialpose.header.frame_id = self.a_frame
-        initialpose.header.stamp = rospy.Time.now()
-        self.publisher.publish(initialpose)
-        rospy.sleep(1)
 
     def listToDict(self,lst,key):
         new_dict = dict((d[key],dict(d)) for (index,d) in enumerate(lst))
