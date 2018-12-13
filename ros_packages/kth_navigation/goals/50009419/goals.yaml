@@ -1,0 +1,50 @@
+- name: goal_0
+  orientation:
+    w: 1.0
+    x: 0
+    y: 0
+    z: 0
+  position:
+    x: 0.15000000000000036
+    y: 5.700000000000001
+    z: 0
+- name: goal_1
+  orientation:
+    w: 1.0
+    x: 0
+    y: 0
+    z: 0
+  position:
+    x: 0.0
+    y: -0.4499999999999993
+    z: 0
+- name: goal_2
+  orientation:
+    w: 1.0
+    x: 0
+    y: 0
+    z: 0
+  position:
+    x: 2.6000000000000005
+    y: -2.0
+    z: 0
+- name: goal_3
+  orientation:
+    w: 1.0
+    x: 0
+    y: 0
+    z: 0
+  position:
+    x: -0.7999999999999998
+    y: -4.6
+    z: 0
+- name: goal_4
+  orientation:
+    w: 1.0
+    x: 0
+    y: 0
+    z: 0
+  position:
+    x: -3.95
+    y: 9.05
+    z: 0
