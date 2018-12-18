@@ -5,8 +5,8 @@
     y: 0
     z: 0
   position:
-    x: -6.349999999999998
-    y: -16.6
+    x: -11.649999999999999
+    y: -16.200000000000003
     z: 0
 - name: goal_1
   orientation:
@@ -15,8 +15,8 @@
     y: 0
     z: 0
   position:
-    x: -19.05
-    y: -21.050000000000004
+    x: -15.75
+    y: 13.700000000000003
     z: 0
 - name: goal_2
   orientation:
@@ -25,8 +25,8 @@
     y: 0
     z: 0
   position:
-    x: -12.649999999999999
-    y: 9.199999999999996
+    x: 17.700000000000003
+    y: 4.799999999999997
     z: 0
 - name: goal_3
   orientation:
@@ -35,8 +35,8 @@
     y: 0
     z: 0
   position:
-    x: -7.149999999999999
-    y: 18.85
+    x: 4.150000000000002
+    y: 2.299999999999997
     z: 0
 - name: goal_4
   orientation:
@@ -45,8 +45,8 @@
     y: 0
     z: 0
   position:
-    x: 4.350000000000001
-    y: 3.6499999999999986
+    x: -6.199999999999999
+    y: 16.85
     z: 0
 - name: goal_5
   orientation:
@@ -55,8 +55,8 @@
     y: 0
     z: 0
   position:
-    x: 17.550000000000004
-    y: 19.950000000000003
+    x: 16.200000000000003
+    y: -20.450000000000003
     z: 0
 - name: goal_6
   orientation:
@@ -65,8 +65,8 @@
     y: 0
     z: 0
   position:
-    x: 19.5
-    y: -3.5
+    x: 20.150000000000006
+    y: 20.1
     z: 0
 - name: goal_7
   orientation:
@@ -75,8 +75,8 @@
     y: 0
     z: 0
   position:
-    x: 19.25
-    y: 7.350000000000001
+    x: -18.65
+    y: -3.1000000000000014
     z: 0
 - name: goal_8
   orientation:
@@ -85,8 +85,8 @@
     y: 0
     z: 0
   position:
-    x: -15.2
-    y: -11.250000000000002
+    x: -22.15
+    y: -16.150000000000002
     z: 0
 - name: goal_9
   orientation:
@@ -95,8 +95,8 @@
     y: 0
     z: 0
   position:
-    x: -16.7
-    y: 18.549999999999997
+    x: 15.600000000000001
+    y: -7.800000000000001
     z: 0
 - name: goal_10
   orientation:
@@ -105,8 +105,8 @@
     y: 0
     z: 0
   position:
-    x: 20.700000000000003
-    y: -19.950000000000003
+    x: 2.450000000000003
+    y: 19.700000000000003
     z: 0
 - name: goal_11
   orientation:
@@ -115,8 +115,8 @@
     y: 0
     z: 0
   position:
-    x: -22.05
-    y: -0.45000000000000284
+    x: -6.899999999999999
+    y: 5.75
     z: 0
 - name: goal_12
   orientation:
@@ -125,8 +125,8 @@
     y: 0
     z: 0
   position:
-    x: -4.5
-    y: 8.25
+    x: 6.450000000000003
+    y: -22.1
     z: 0
 - name: goal_13
   orientation:
@@ -135,8 +135,8 @@
     y: 0
     z: 0
   position:
-    x: -21.6
-    y: 10.75
+    x: -19.7
+    y: 23.35
     z: 0
 - name: goal_14
   orientation:
@@ -145,8 +145,8 @@
     y: 0
     z: 0
   position:
-    x: 4.100000000000001
-    y: 20.15
+    x: 7.300000000000004
+    y: 11.25
     z: 0
 - name: goal_15
   orientation:
@@ -155,8 +155,8 @@
     y: 0
     z: 0
   position:
-    x: 15.650000000000006
-    y: -10.600000000000001
+    x: -1.5999999999999979
+    y: -18.0
     z: 0
 - name: goal_16
   orientation:
@@ -165,8 +165,8 @@
     y: 0
     z: 0
   position:
-    x: -5.599999999999998
-    y: -10.300000000000002
+    x: 10.050000000000004
+    y: -9.450000000000003
     z: 0
 - name: goal_17
   orientation:
@@ -175,8 +175,8 @@
     y: 0
     z: 0
   position:
-    x: 6.200000000000003
-    y: -21.200000000000003
+    x: -8.2
+    y: -4.100000000000001
     z: 0
 - name: goal_18
   orientation:
@@ -185,8 +185,8 @@
     y: 0
     z: 0
   position:
-    x: -8.849999999999998
-    y: -22.250000000000004
+    x: 1.8000000000000007
+    y: -7.7500000000000036
     z: 0
 - name: goal_19
   orientation:
@@ -195,8 +195,8 @@
     y: 0
     z: 0
   position:
-    x: -22.0
-    y: -11.900000000000002
+    x: 1.5
+    y: -21.200000000000003
     z: 0
 - name: goal_20
   orientation:
@@ -205,8 +205,8 @@
     y: 0
     z: 0
   position:
-    x: -8.8
-    y: -2.1000000000000014
+    x: 7.950000000000003
+    y: 23.75
     z: 0
 - name: goal_21
   orientation:
@@ -215,8 +215,8 @@
     y: 0
     z: 0
   position:
-    x: 7.550000000000004
-    y: -11.400000000000002
+    x: -14.899999999999999
+    y: 1.0499999999999972
     z: 0
 - name: goal_22
   orientation:
@@ -225,8 +225,8 @@
     y: 0
     z: 0
   position:
-    x: -22.0
-    y: 21.65
+    x: 18.400000000000006
+    y: -17.35
     z: 0
 - name: goal_23
   orientation:
@@ -235,8 +235,8 @@
     y: 0
     z: 0
   position:
-    x: 6.450000000000003
-    y: -2.8000000000000007
+    x: -23.2
+    y: 6.350000000000001
     z: 0
 - name: goal_24
   orientation:
@@ -245,8 +245,8 @@
     y: 0
     z: 0
   position:
-    x: 5.950000000000003
-    y: 10.549999999999997
+    x: -6.149999999999999
+    y: -7.050000000000001
     z: 0
 - name: goal_25
   orientation:
@@ -255,8 +255,8 @@
     y: 0
     z: 0
   position:
-    x: -14.2
-    y: -0.45000000000000284
+    x: 23.6
+    y: 13.350000000000001
     z: 0
 - name: goal_26
   orientation:
@@ -265,8 +265,8 @@
     y: 0
     z: 0
   position:
-    x: -3.099999999999998
-    y: -1.3500000000000014
+    x: 0.5
+    y: -17.25
     z: 0
 - name: goal_27
   orientation:
@@ -275,8 +275,8 @@
     y: 0
     z: 0
   position:
-    x: 9.850000000000001
-    y: 23.950000000000003
+    x: 11.700000000000003
+    y: 20.85
     z: 0
 - name: goal_28
   orientation:
@@ -285,8 +285,8 @@
     y: 0
     z: 0
   position:
-    x: 14.850000000000001
-    y: 9.850000000000001
+    x: -16.65
+    y: -25.450000000000003
     z: 0
 - name: goal_29
   orientation:
@@ -295,8 +295,8 @@
     y: 0
     z: 0
   position:
-    x: -12.5
-    y: 24.4
+    x: -17.0
+    y: -7.400000000000002
     z: 0
 - name: goal_30
   orientation:
@@ -305,8 +305,8 @@
     y: 0
     z: 0
   position:
-    x: 14.950000000000003
-    y: 0.14999999999999858
+    x: 3.0500000000000007
+    y: -14.950000000000003
     z: 0
 - name: goal_31
   orientation:
@@ -315,446 +315,6 @@
     y: 0
     z: 0
   position:
-    x: 14.300000000000004
-    y: -16.800000000000004
-    z: 0
-- name: goal_32
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 11.0
-    y: -24.150000000000002
-    z: 0
-- name: goal_33
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 2.1000000000000014
-    y: -8.3
-    z: 0
-- name: goal_34
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -3.5
-    y: 22.299999999999997
-    z: 0
-- name: goal_35
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 23.200000000000003
-    y: 20.85
-    z: 0
-- name: goal_36
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 10.75
-    y: 17.950000000000003
-    z: 0
-- name: goal_37
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -24.4
-    y: -21.1
-    z: 0
-- name: goal_38
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 23.400000000000006
-    y: -9.650000000000002
-    z: 0
-- name: goal_39
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 9.649999999999999
-    y: 5.299999999999997
-    z: 0
-- name: goal_40
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -2.4499999999999993
-    y: -21.250000000000004
-    z: 0
-- name: goal_41
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -5.049999999999997
-    y: 14.200000000000003
-    z: 0
-- name: goal_42
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 1.0500000000000007
-    y: -20.800000000000004
-    z: 0
-- name: goal_43
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -20.4
-    y: 5.199999999999999
-    z: 0
-- name: goal_44
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -14.049999999999999
-    y: -20.85
-    z: 0
-- name: goal_45
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 22.200000000000003
-    y: 12.25
-    z: 0
-- name: goal_46
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -10.049999999999999
-    y: 2.9499999999999993
-    z: 0
-- name: goal_47
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 16.700000000000003
-    y: 25.15
-    z: 0
-- name: goal_48
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 22.6
-    y: 2.099999999999998
-    z: 0
-- name: goal_49
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 20.450000000000003
-    y: -25.35
-    z: 0
-- name: goal_50
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 0.9000000000000021
-    y: -14.250000000000002
-    z: 0
-- name: goal_51
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 0.5500000000000007
-    y: 13.649999999999999
-    z: 0
-- name: goal_52
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -0.8999999999999986
-    y: -2.75
-    z: 0
-- name: goal_53
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -24.9
-    y: 15.5
-    z: 0
-- name: goal_54
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 19.1
-    y: -14.550000000000002
-    z: 0
-- name: goal_55
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -20.35
-    y: -5.25
-    z: 0
-- name: goal_56
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 3.3500000000000014
-    y: 8.850000000000001
-    z: 0
-- name: goal_57
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 3.1000000000000014
-    y: -17.200000000000003
-    z: 0
-- name: goal_58
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -10.75
-    y: -8.850000000000001
-    z: 0
-- name: goal_59
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -13.149999999999999
-    y: 14.450000000000003
-    z: 0
-- name: goal_60
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 11.850000000000001
-    y: -7.200000000000003
-    z: 0
-- name: goal_61
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -20.1
-    y: -7.100000000000001
-    z: 0
-- name: goal_62
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 20.550000000000004
-    y: 15.5
-    z: 0
-- name: goal_63
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 0.6000000000000014
-    y: 24.5
-    z: 0
-- name: goal_64
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -17.1
-    y: 3.9499999999999993
-    z: 0
-- name: goal_65
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -17.2
-    y: -3.75
-    z: 0
-- name: goal_66
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -1.5
-    y: -13.600000000000001
-    z: 0
-- name: goal_67
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -12.6
-    y: -15.850000000000001
-    z: 0
-- name: goal_68
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 14.75
-    y: 15.75
-    z: 0
-- name: goal_69
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 4.25
-    y: -23.1
-    z: 0
-- name: goal_70
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -16.299999999999997
-    y: -25.400000000000002
-    z: 0
-- name: goal_71
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -17.9
-    y: 24.700000000000003
-    z: 0
-- name: goal_72
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 10.75
-    y: -0.20000000000000284
-    z: 0
-- name: goal_73
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: 10.600000000000001
-    y: 12.799999999999997
-    z: 0
-- name: goal_74
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -18.15
-    y: -16.1
-    z: 0
-- name: goal_75
-  orientation:
-    w: 1.0
-    x: 0
-    y: 0
-    z: 0
-  position:
-    x: -5.899999999999999
-    y: 2.849999999999998
+    x: 3.200000000000003
+    y: -12.700000000000003
     z: 0

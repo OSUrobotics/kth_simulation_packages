@@ -35,7 +35,7 @@
 
   <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)"/>
   <!-- <node pkg="rviz" type="rviz" name="rviz" /> -->
-  <node pkg="rosbag" type="record" name="rosbag_record" args="record -O $(find kth_navigation)/$(optenv KTH_WORLD).bag /tf /base_scan /tf_static" output="screen"/>
+  <node pkg="rosbag" type="record" name="rosbag_record" args="record -O /tmp/$(optenv KTH_WORLD).bag /tf /base_scan /tf_static" output="screen"/>
   <!-- <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen" >
     <param name="map_frame" value="slam_map" />
     <param name="base_frame" value="slam_base_link"/>

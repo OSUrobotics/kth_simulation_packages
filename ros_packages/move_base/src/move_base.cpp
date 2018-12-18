@@ -42,7 +42,7 @@
 #include <boost/thread.hpp>
 
 #include <geometry_msgs/Twist.h>
-#include <std_msgs/Int16.h>
+#include <std_msgs/String.h>
 
 namespace move_base {
 
@@ -91,7 +91,7 @@ namespace move_base {
     current_goal_pub_ = private_nh.advertise<geometry_msgs::PoseStamped>("current_goal", 0 );
 
     //for flagging recovery behavior
-    recovery_pub_ = nh.advertise<std_msgs::Int16>("recovery_status",10);
+    recovery_pub_ = nh.advertise<std_msgs::String>("recovery_status",10);
 
     ros::NodeHandle action_nh("move_base");
     action_goal_pub_ = action_nh.advertise<move_base_msgs::MoveBaseActionGoal>("goal", 1);
@@ -792,6 +792,7 @@ namespace move_base {
   }
 
   bool MoveBase::executeCycle(geometry_msgs::PoseStamped& goal, std::vector<geometry_msgs::PoseStamped>& global_plan){
+    ros:: NodeHandle n;
     boost::recursive_mutex::scoped_lock ecl(configuration_mutex_);
     //we need to be able to publish velocity commands
     geometry_msgs::Twist cmd_vel;
@@ -946,9 +947,13 @@ namespace move_base {
         //we'll invoke whatever recovery behavior we're currently on if they're enabled
         if(recovery_behavior_enabled_ && recovery_index_ < recovery_behaviors_.size()){
           ROS_DEBUG_NAMED("move_base_recovery","Executing behavior %u of %zu", recovery_index_, recovery_behaviors_.size());
-          std_msgs::Int16 recovery_msg;
-          recovery_msg.data = 1;
+
+          // Publish info about recovery behavior
+          std_msgs::String recovery_msg;
+          std::string name = recovery_behavior_names_[recovery_index_];
+          recovery_msg.data = name;
           recovery_pub_.publish(recovery_msg);
+
           recovery_behaviors_[recovery_index_]->runBehavior();
 
           //we at least want to give the robot some time to stop oscillating after executing the behavior
@@ -1064,6 +1069,7 @@ namespace move_base {
 
             //initialize the recovery behavior with its name
             behavior->initialize(behavior_list[i]["name"], &tf_, planner_costmap_ros_, controller_costmap_ros_);
+            recovery_behavior_names_.push_back(behavior_list[i]["name"]);
             recovery_behaviors_.push_back(behavior);
           }
           catch(pluginlib::PluginlibException& ex){

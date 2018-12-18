@@ -184,6 +184,7 @@ namespace move_base {
       std::string robot_base_frame_, global_frame_;
 
       std::vector<boost::shared_ptr<nav_core::RecoveryBehavior> > recovery_behaviors_;
+      std::vector<std::string> recovery_behavior_names_;
       unsigned int recovery_index_;
 
       tf::Stamped<tf::Pose> global_pose_;

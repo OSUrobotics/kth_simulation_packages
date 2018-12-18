@@ -159,7 +159,7 @@ def get_cover(image, samples):
     ################# inflate the image ##########################
     height, width = image.shape
     radius = int(.7 / res)
-    laser_range = int(5/res)
+    laser_range = int(10/res)
     img = deepcopy(image)
     goal_image = deepcopy(image)
     for i in range(height):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy, actionlib, os, cv2
 from gazebo_msgs.msg import ModelState
-from std_msgs.msg import Int16
+from std_msgs.msg import String
 # from std_srvs.srv import *
 from move_base_msgs.msg import MoveBaseActionResult, MoveBaseGoal, MoveBaseAction
 from actionlib_msgs.msg import *
@@ -52,7 +52,7 @@ class Simulator:
 
         # Subscribe to the results of moves
         self.move_result_sub = rospy.Subscriber('move_base/result', MoveBaseActionResult, self.callback)
-        self.subscriber2 = rospy.Subscriber('recovery_status',Int16,self.recovery_callback)
+        self.subscriber2 = rospy.Subscriber('recovery_status',String,self.recovery_callback)
 
         # get the map
         rospy.wait_for_service('/static_map')
@@ -60,6 +60,8 @@ class Simulator:
 
         self.locations = self.get_locations()
         np.random.seed(int(time()))
+
+        self.failed_attempts = 0
         # Publish initial pose estimates:
 
 
@@ -79,12 +81,19 @@ class Simulator:
                 amcl_path.append(self.get_amcl_pose().msg.pose.pose)
                 gazebo_path.append(self.get_gazebo_state(self.robot,self.g_frame).pose)
                 rospy.sleep(1)
+                cur_time = rospy.get_time()
+                if (cur_time - self.start_time) > 1800:
+                    # robot is taking too long, possibly stuck
+                    rospy.signal_shutdown(0)
             data = dict()
             data['result'] = self.move_result
             data['move_time'] = self.stop_time - self.start_time
             data['amcl_path'] = amcl_path
             data['gazebo_path'] = gazebo_path
             self.write_data(data)
+
+            if self.failed_attempts > 4:
+                rospy.signal_shutdown(0)
         rospy.signal_shutdown(0)
 
 
@@ -165,11 +174,17 @@ class Simulator:
         self.stop_time = rospy.get_time()
         self.move_result = int(msg.status.status)
         self.stopped = True
+        if self.move_result == 3:
+            self.failed_attempts = 0
+        else:
+            self.failed_attempts = self.failed_attempts + 1
 
     def recovery_callback(self,msg):
-        a_pose = self.get_amcl_pose().msg.pose.pose
-        g_pose = self.get_gazebo_state(self.robot,self.g_frame).pose
-        self.recovery_locations.append((a_pose,g_pose))
+        entry = dict()
+        entry["amcl_pose"] = self.get_amcl_pose().msg.pose.pose
+        entry["gazebo_pose"] = self.get_gazebo_state(self.robot,self.g_frame).pose
+        entry["recovery_behavior"] = msg.data
+        self.recovery_locations.append(entry)
 
     def write_data(self,data):
         filename = self.results_folder + '/data.npy'
@@ -179,21 +194,16 @@ class Simulator:
             # Results already exists
             results = np.load(filename)
             results = results.item()
-            results['amcl_paths'].append(data['amcl_path'])
-            results['gazebo_paths'].append(data['gazebo_path'])
-            results['results'].append(data['result'])
-            results['move_times'].append(data['move_time'])
+            results['data_points'] = results['data_points'] + [data]
             results['recovery_locations'] = results['recovery_locations'] + self.recovery_locations
             np.save(filename,results)
 
         else:
             results = dict()
-            results['amcl_paths'] = [data['amcl_path']]
-            results['gazebo_paths'] = [data['gazebo_path']]
-            results['results'] = [data['result']]
-            results['move_times'] = [data['move_time']]
+            results['data_points'] = [data]
             results['recovery_locations'] = self.recovery_locations
             np.save(filename,results)
+        self.recovery_locations = []
 
 if __name__ == "__main__":
     simulator = Simulator()

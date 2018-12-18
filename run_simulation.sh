@@ -17,10 +17,10 @@ do
       echo "Done simulating";
       exit
    fi
-   # cur_time="$(date -u +%s)"
-   # elapsed="$(($cur_time-$start_time))"
-   # if [ $elapsed -gt 300 ]; then
-   #    echo "Done simulating";
-   #    exit
-   # fi
+   cur_time="$(date -u +%s)"
+   elapsed="$(($cur_time-$start_time))"
+   if [ $elapsed -gt 18000 ]; then
+      echo "Done simulating";
+      exit
+   fi
 done
