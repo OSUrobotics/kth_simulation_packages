@@ -34,6 +34,7 @@
   </node>
 
   <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)"/>
+  <node name="amcl_pose_server" pkg="kth_navigation" type="pose_server.py" />
   <!-- <node pkg="rviz" type="rviz" name="rviz" /> -->
   <node pkg="rosbag" type="record" name="rosbag_record" args="record -O /tmp/$(optenv KTH_WORLD).bag /tf /base_scan /tf_static" output="screen"/>
   <!-- <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen" >
