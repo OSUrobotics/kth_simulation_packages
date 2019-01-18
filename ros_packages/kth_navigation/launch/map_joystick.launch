@@ -40,8 +40,7 @@
     </rosparam>
   </node>
 
-  <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_joy_node" />
-
+  <node pkg="fetch_teleop" type="joystick_teleop" name="joystick_teleop" />
   <node pkg="joy" type="joy_node" name="joy_node"/>
 
   <node pkg="rviz" type="rviz" name="rviz"/>
