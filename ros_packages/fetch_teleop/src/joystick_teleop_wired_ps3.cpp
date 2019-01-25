@@ -97,8 +97,8 @@ public:
     ros::NodeHandle pnh(nh, name);
 
     // Button mapping
-    pnh.param("button_deadman", deadman_, 10);
-    pnh.param("axis_x", axis_x_, 3);
+    pnh.param("button_deadman", deadman_, 4);
+    pnh.param("axis_x", axis_x_, 4);
     pnh.param("axis_w", axis_w_, 0);
 
     // Base limits
@@ -257,9 +257,9 @@ public:
     ros::NodeHandle pnh(nh, name);
 
     // Button mapping
-    pnh.param("button_deadman", deadman_, 10);
-    pnh.param("button_increase", inc_button_, 12);
-    pnh.param("button_decrease", dec_button_, 14);
+    pnh.param("button_deadman", deadman_, 4);
+    pnh.param("button_increase", inc_button_, 2);
+    pnh.param("button_decrease", dec_button_, 0);
 
     // Joint Limits
     pnh.param("min_position", min_position_, 0.0);
@@ -379,9 +379,9 @@ public:
     ros::NodeHandle pnh(nh, name);
 
     // Button mapping
-    pnh.param("button_deadman", deadman_, 10);
-    pnh.param("button_open", open_button_, 0);
-    pnh.param("button_close", close_button_, 3);
+    pnh.param("button_deadman", deadman_, 4);
+    pnh.param("button_open", open_button_, 8);
+    pnh.param("button_close", close_button_, 9);
 
     // Joint Limits
     pnh.param("closed_position", min_position_, 0.0);
@@ -456,9 +456,9 @@ public:
     ros::NodeHandle pnh(nh, name);
 
     // Button mapping
-    pnh.param("button_deadman", deadman_, 8);
+    pnh.param("button_deadman", deadman_, 6);
     pnh.param("axis_pan", axis_pan_, 0);
-    pnh.param("axis_tilt", axis_tilt_, 3);
+    pnh.param("axis_tilt", axis_tilt_, 4);
 
     // Joint limits
     pnh.param("max_vel_pan", max_vel_pan_, 1.5);
@@ -573,16 +573,15 @@ public:
   {
     ros::NodeHandle pnh(nh, name);
 
-    pnh.param("axis_x", axis_x_, 3);
-    pnh.param("axis_y", axis_y_, 2);
+    pnh.param("axis_x", axis_x_, 4);
+    pnh.param("axis_y", axis_y_, 3);
     pnh.param("axis_z", axis_z_, 1);
-    pnh.param("axis_roll", axis_roll_, 2);
-    pnh.param("axis_pitch", axis_pitch_, 3);
+    pnh.param("axis_roll", axis_roll_, 3);
+    pnh.param("axis_pitch", axis_pitch_, 4);
     pnh.param("axis_yaw", axis_yaw_, 0);
 
-    pnh.param("button_deadman", deadman_, 10);
-    pnh.param("button_arm_linear", button_linear_, 9);
-    pnh.param("button_arm_angular", button_angular_, 11);
+    pnh.param("button_arm_linear", button_linear_, 7);
+    pnh.param("button_arm_angular", button_angular_, 5);
 
     // Twist limits
     pnh.param("max_vel_x", max_vel_x_, 1.0);
@@ -605,11 +604,10 @@ public:
   virtual bool update(const sensor_msgs::Joy::ConstPtr& joy,
                       const sensor_msgs::JointState::ConstPtr& state)
   {
-    bool deadman_pressed = joy->buttons[deadman_];
     bool button_linear_pressed = joy->buttons[button_linear_];
     bool button_angular_pressed = joy->buttons[button_angular_];
 
-    if ((!(button_linear_pressed || button_angular_pressed) || !deadman_pressed) &&
+    if (!(button_linear_pressed || button_angular_pressed) &&
         (ros::Time::now() - last_update_ > ros::Duration(0.5)))
     {
       stop();
@@ -665,6 +663,7 @@ public:
       last_.twist.angular.z = integrate(desired_.twist.angular.z, last_.twist.angular.z, max_acc_yaw_, dt.toSec());
 
       last_.header.frame_id = "base_link";
+
       cmd_pub_.publish(last_);
     }
   }
@@ -692,7 +691,6 @@ public:
 private:
 
   // Buttons from params
-  int deadman_;
   int axis_x_, axis_y_, axis_z_, axis_roll_, axis_pitch_, axis_yaw_;
   int button_linear_, button_angular_;
 

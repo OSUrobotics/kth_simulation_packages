@@ -30,7 +30,7 @@
   <include file="$(find fetch_gazebo)/launch/include/$(arg robot).launch.xml" />
 
 
-  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="log">
     <remap from="scan" to="base_scan" />
     <rosparam>
       xmin: -1.0
@@ -40,8 +40,12 @@
     </rosparam>
   </node>
 
-  <node pkg="fetch_teleop" type="joystick_teleop" name="joystick_teleop" />
-  <node pkg="joy" type="joy_node" name="joy_node"/>
+  <node pkg="fetch_teleop" type="joystick_teleop" name="joystick_teleop" output="screen"/>
 
-  <node pkg="rviz" type="rviz" name="rviz"/>
+  <!-- You have to set the autorepeat parameter or else commands will time out -->
+  <node pkg="joy" type="joy_node" name="joy_node">
+    <param name="autorepeat_rate" value="10" />
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find kth_navigation)/rviz/config.rviz"/>
 </launch>
