@@ -14,13 +14,13 @@ RUN apt-get install -y ros-kinetic-gazebo9-*
 RUN apt-get install -y ros-kinetic-catkin
 RUN apt-get install -y ros-kinetic-opencv-candidate
 RUN apt-get install -y ros-kinetic-costmap-2d
-RUN apt-get install -y ros-kinetic-robot-controllers*
 RUN apt-get install -y ros-kinetic-map-server
 RUN apt-get install -y ros-kinetic-xacro
 RUN apt-get install -y ros-kinetic-rgbd-launch
 RUN apt-get install -y ros-kinetic-amcl
 RUN apt-get install -y ros-kinetic-move-base
 RUN apt-get install -y ros-kinetic-robot-state-publisher
+RUN apt-get install -y ros-kinetic-robot-controllers
 RUN apt-get install -y ssh
 RUN apt-get install -y psmisc
 RUN apt-get remove -y wget
@@ -36,10 +36,10 @@ COPY --chown=rosuser:rosuser ros_packages/fetch_maps /home/rosuser/catkin_ws/src
 COPY --chown=rosuser:rosuser ros_packages/fetch_navigation /home/rosuser/catkin_ws/src/fetch_navigation
 COPY --chown=rosuser:rosuser ros_packages/kth_navigation /home/rosuser/catkin_ws/src/kth_navigation
 COPY --chown=rosuser:rosuser ros_packages/move_base /home/rosuser/catkin_ws/src/move_base
-COPY --chown=rosuser:rosuser bombadil_key.pem /home/rosuser/.ssh/
+COPY --chown=rosuser:rosuser ros_packages/robot_controllers /home/rosuser/catkin_ws/src/robot_controllers
 COPY --chown=rosuser:rosuser kth_simulation_docker/kth_entrypoint.sh /home/rosuser/
 COPY --chown=rosuser:rosuser kth_simulation_docker/simulate_moves.sh /home/rosuser/
-# COPY --chown=rosuser:rosuser kth_simulation_key.pem /home/rosuser/.ssh/
+COPY --chown=rosuser:rosuser kth_simulation_key.pem /home/rosuser/.ssh/
 RUN cd catkin_ws/src && source /opt/ros/kinetic/setup.bash && catkin_init_workspace
 RUN cd catkin_ws && source /opt/ros/kinetic/setup.bash && catkin_make
 RUN chmod u+x kth_entrypoint.sh

@@ -3,16 +3,16 @@ trap "exit" INT
 cd /tmp
 start_time="$(date -u +%s)"
 while [ true ]; do
+  scp -r -o StrictHostKeyChecking=no -i "$HOME/.ssh/kth_simulation_key.pem" "ubuntu@$STORAGE_DOMAIN:kth_ros_maps/$KTH_WORLD" "$HOME/catkin_ws/src/kth_navigation/ros_maps/"
   roslaunch kth_navigation simulation.launch
   killall -q -9 roscore
   killall -q -9 rosmaster
   killall -q -9 rosout
   killall -q -9 gzserver
-  echo "$(ls)"
-  scp -r -o StrictHostKeyChecking=no -i "$HOME/.ssh/bombadil_key.pem" "$KTH_WORLD"* "whitesea@bombadil.engr.oregonstate.edu:workspace/navigation_analysis_packages/data_post_processing/input/"
+  scp -r -o StrictHostKeyChecking=no -i "$HOME/.ssh/kth_simulation_key.pem" "$KTH_WORLD"* "ubuntu@$STORAGE_DOMAIN:data_post_processing/input/"
   cur_time="$(date -u +%s)"
   elapsed="$(($cur_time-$start_time))"
-  if [ $elapsed -gt 100000 ]; then
+  if [ $elapsed -gt 259200 ]; then
      echo "Done simulating";
      exit
   fi
