@@ -21,9 +21,11 @@ WORLDS=(0510025536_Layout1_PLAN4
 0510032194_A_40_1_202
   )
 
+domain=$STORAGE_DOMAIN
+
   for i in "${WORLDS[@]}"
   do
-     docker run -e "KTH_WORLD=$i" -e "STORAGE_DOMAIN=$STORAGE_DOMAIN" -d kth_simulation
+     docker run -e "KTH_WORLD=$i" -e "STORAGE_DOMAIN=$domain" -d kth_simulation
   done
   sleep 2
   start_time="$(date -u +%s)"
