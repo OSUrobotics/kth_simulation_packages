@@ -13368,7 +13368,7 @@
 			</visual>
 			<pose frame="">0.0 -0.0 0 0 0 0.0</pose>
 		</link>
-		<pose frame="">-67.45 24.1679019877 0 0 0 0</pose>
+		<pose frame="">-65.45 24.1679019877 0 0 0 0</pose>
 	</model>
 </world>
 </sdf>
