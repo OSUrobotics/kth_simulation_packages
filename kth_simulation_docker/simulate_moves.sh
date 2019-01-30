@@ -2,7 +2,7 @@
 trap "exit" INT
 cd /tmp
 start_time="$(date -u +%s)"
-scp -r -o StrictHostKeyChecking=no -i "$HOME/.ssh/kth_simulation_key.pem" "ubuntu@$STORAGE_DOMAIN:kth_ros_maps/$KTH_WORLD" "$HOME/catkin_ws/src/kth_navigation/ros_maps/"
+scp -r -o StrictHostKeyChecking=no -i "$HOME/.ssh/kth_simulation_key.pem" "ubuntu@$STORAGE_DOMAIN:kth_ros_maps/$KTH_WORLD" "$HOME/catkin_ws/src/kth_navigation/ros_maps"
 while [ true ]; do
   roslaunch kth_navigation simulation.launch
   killall -q -9 roscore
