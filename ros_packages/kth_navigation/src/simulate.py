@@ -153,6 +153,7 @@ class Simulator:
         for i in range(len(locations)):
             locations[i] = [(locations[i][0] * res + origin.x, locations[i][1] * res + origin.y)]
 
+        rospy.loginfo(len(locations))
         return locations
 
     def get_goal(self):

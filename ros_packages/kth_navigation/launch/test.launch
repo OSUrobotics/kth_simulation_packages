@@ -6,10 +6,10 @@
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
-  <arg name="world" default="50009418" />
+  <arg name="world" default="$(optenv KTH_WORLD)" />
   <arg name="results_folder" default="/tmp/$(arg world)" />
   <arg name="world_file" default="$(find kth_navigation)/worlds/$(arg world).world" />
-  <arg name="map" default="$(find kth_navigation)/maps/$(arg world)/map.yaml" />
+  <arg name="map" default="$(find kth_navigation)/ros_maps/$(arg world)/map.yaml" />
   <arg name="rviz_args" value="-d $(find kth_navigation)/rviz/config.rviz" />
 
   <!-- Start Gazebo with a blank world -->
@@ -31,13 +31,6 @@
 
   <node name="$(anon rviz)" pkg="rviz" type="rviz" required="true"
      respawn="false" output="screen" args="$(arg rviz_args)">
-  </node>
-
-  <node name="simulator" pkg="kth_navigation" type="simulate.py" output="screen" required="true">
-    <param name="robot" value="$(arg robot)" />
-    <param name="gazebo_frame" value="world" />
-    <param name="amcl_frame" value="map" />
-    <param name="results_folder" value="$(arg results_folder)" />
   </node>
 
 
