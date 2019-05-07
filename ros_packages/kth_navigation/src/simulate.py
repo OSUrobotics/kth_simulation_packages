@@ -90,7 +90,9 @@ class Simulator:
             data['move_time'] = self.stop_time - self.start_time
             data['amcl_path'] = amcl_path
             data['gazebo_path'] = gazebo_path
+            data['recoveries'] = self.recovery_locations
             self.write_data(data)
+            self.recovery_locations = []
 
             if self.failed_attempts > 4:
                 rospy.signal_shutdown(0)
@@ -196,15 +198,12 @@ class Simulator:
             results = np.load(filename)
             results = results.item()
             results['data_points'] = results['data_points'] + [data]
-            results['recovery_locations'] = results['recovery_locations'] + self.recovery_locations
             np.save(filename,results)
 
         else:
             results = dict()
             results['data_points'] = [data]
-            results['recovery_locations'] = self.recovery_locations
             np.save(filename,results)
-        self.recovery_locations = []
 
 if __name__ == "__main__":
     simulator = Simulator()
