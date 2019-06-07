@@ -1,2 +1,8 @@
 *.pem
 *maps/*
+*.npz
+*.npy
+*.h5
+data_post_processing/models/*
+data_post_processing/testing/*
+data_post_processing/*data/*
