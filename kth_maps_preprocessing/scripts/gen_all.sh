@@ -11,7 +11,3 @@ done
 for d in $RELATIVE_PATH/../models/*/model.sdf; do
   python $RELATIVE_PATH/../src/buildworld.py $d
 done
-
-for d in $RELATIVE_PATH/../maps/*/; do
-  python $RELATIVE_PATH/../src/findGoals.py $d
-done

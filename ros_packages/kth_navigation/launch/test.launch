@@ -29,13 +29,13 @@
   <include file="$(find fetch_navigation)/launch/fetch_nav.launch">
     <arg name="map_file" value="$(arg map)" />
   </include>
-
-  <node name="simulator" pkg="kth_navigation" type="simulate.py" output="screen" required="true">
+  <node name='rviz' pkg='rviz' type='rviz' args='-d $(find kth_navigation)/rviz/config.rviz'/>
+  <!-- <node name="simulator" pkg="kth_navigation" type="simulate.py" output="screen" required="true">
     <param name="robot" value="$(arg robot)" />
     <param name="gazebo_frame" value="world" />
     <param name="amcl_frame" value="map" />
     <param name="results_folder" value="$(arg results_folder)" />
-  </node>
+  </node> -->
 
   <node name="amcl_pose_server" pkg="kth_navigation" type="pose_server.py" />
 
